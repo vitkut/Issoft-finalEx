@@ -2,8 +2,12 @@ package services;
 
 import models.Building;
 import models.Human;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HumanCreator {
+
+    private static final Logger logger = LoggerFactory.getLogger(HumanCreator.class);
 
     public static void createRandomHuman(Building building){
         int floor = (int) (Math.random()*building.getNumberOfFloors());
@@ -24,6 +28,7 @@ public class HumanCreator {
             //down
             building.getFloors().get(floor).getToDown().add(newHuman);
         }
+        logger.debug("Human created - "+newHuman+" - in floor - "+floor);
     }
 
 }

@@ -1,15 +1,15 @@
 package models;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 public class Floor {
 
     private int number;
-    private PriorityQueue<Human> toDown = new PriorityQueue<Human>();
-    private PriorityQueue<Human> toUp = new PriorityQueue<Human>();
-    private boolean upButtonIsDown = false;
-    private boolean downButtonIsDown = false;
+    private LinkedList<Human> toDown = new LinkedList<Human>();
+    private LinkedList<Human> toUp = new LinkedList<Human>();
+    private boolean upButtonIsPressed = false;
+    private boolean downButtonIsPressed = false;
 
     public Floor(int number) {
         this.number = number;
@@ -23,35 +23,56 @@ public class Floor {
         this.number = number;
     }
 
-    public PriorityQueue<Human> getToDown() {
+    public LinkedList<Human> getToDown() {
         return toDown;
     }
 
-    public void setToDown(PriorityQueue<Human> toDown) {
+    public void setToDown(LinkedList<Human> toDown) {
         this.toDown = toDown;
     }
 
-    public PriorityQueue<Human> getToUp() {
+    public LinkedList<Human> getToUp() {
         return toUp;
     }
 
-    public void setToUp(PriorityQueue<Human> toUp) {
+    public void setToUp(LinkedList<Human> toUp) {
         this.toUp = toUp;
     }
 
-    public boolean isUpButtonIsDown() {
-        return upButtonIsDown;
+    public void addToUp(Human human){
+        toUp.add(human);
+        upButtonIsPressed = true;
     }
 
-    public void setUpButtonIsDown(boolean upButtonIsDown) {
-        this.upButtonIsDown = upButtonIsDown;
+    public void addToDown(Human human){
+        toDown.add(human);
+        downButtonIsPressed = true;
     }
 
-    public boolean isDownButtonIsDown() {
-        return downButtonIsDown;
+    public boolean isUpButtonIsPressed() {
+        return upButtonIsPressed;
     }
 
-    public void setDownButtonIsDown(boolean downButtonIsDown) {
-        this.downButtonIsDown = downButtonIsDown;
+    public void setUpButtonIsPressed(boolean upButtonIsPressed) {
+        this.upButtonIsPressed = upButtonIsPressed;
+    }
+
+    public boolean isDownButtonIsPressed() {
+        return downButtonIsPressed;
+    }
+
+    public void setDownButtonIsPressed(boolean downButtonIsPressed) {
+        this.downButtonIsPressed = downButtonIsPressed;
+    }
+
+    @Override
+    public String toString() {
+        return "Floor{" +
+                "\n\tnumber=" + number +
+                ", \n\ttoDown=" + toDown +
+                ", \n\ttoUp=" + toUp +
+                ", \n\tupButtonIsPressed=" + upButtonIsPressed +
+                ", \n\tdownButtonIsPressed=" + downButtonIsPressed +
+                "\n}";
     }
 }

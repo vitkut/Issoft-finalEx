@@ -25,4 +25,12 @@ public class Human {
     public void setRequiredFloor(int requiredFloor) {
         this.requiredFloor = requiredFloor;
     }
+
+    @Override
+    public String toString() {
+        return "Human{" +
+                "\n\tweight=" + weight +
+                ", \n\trequiredFloor=" + requiredFloor +
+                "\n}";
+    }
 }
