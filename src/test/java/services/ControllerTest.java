@@ -23,7 +23,7 @@ public class ControllerTest {
     }
 
     @Test
-    void checkElevatorTestV1(){
+    void checkElevatorTest(){
         //given
         Building building = BuildingSamples.getValidBuildingV2();
         Controller controller = new Controller();
@@ -37,6 +37,23 @@ public class ControllerTest {
         //then
         assertTrue(elevator.isDoorsOpen());
         assertFalse(elevator1.isDoorsOpen());
+    }
+
+    @Test
+    void correctElevatorsGoingVector(){
+        //given
+        Building building = BuildingSamples.getValidBuildingV3();
+        Controller controller = new Controller();
+        Elevator elevator = building.getElevators().get(0);
+        Elevator elevator1 = building.getElevators().get(1);
+
+        //when
+        controller.correctElevatorGoingVector(elevator, building);
+        controller.correctElevatorGoingVector(elevator1, building);
+
+        //then
+        assertEquals(-1, elevator.getGoingVector());
+        assertEquals(0, elevator1.getGoingVector());
     }
 
 }

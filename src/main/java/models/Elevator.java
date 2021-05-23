@@ -16,7 +16,7 @@ public class Elevator {
     private int speed;
     private int doorsSpeed;
     private int occupiedCapacity;
-    private ArrayList<Human> humans;
+    private LinkedList<Human> humans;
     private int goingVector; //-1 / 0 / 1
 
     public Elevator(int location, int liftingCapacity, int speed, int doorsSpeed) {
@@ -27,7 +27,7 @@ public class Elevator {
         this.isDoorsOpen = false;
         this.goingVector = 0;
         this.occupiedCapacity = 0;
-        humans = new ArrayList<Human>();
+        humans = new LinkedList<Human>();
     }
 
     public int getLocation() {
@@ -70,11 +70,11 @@ public class Elevator {
         this.doorsSpeed = doorsSpeed;
     }
 
-    public ArrayList<Human> getHumans() {
+    public LinkedList<Human> getHumans() {
         return humans;
     }
 
-    public void setHumans(ArrayList<Human> humans) {
+    public void setHumans(LinkedList<Human> humans) {
         this.humans = humans;
     }
 
@@ -99,14 +99,14 @@ public class Elevator {
     @Override
     public String toString() {
         return "Elevator{" +
-                "\n\tlocation=" + location +
-                ", \n\tisDoorsOpen=" + isDoorsOpen +
-                ", \n\tliftingCapacity=" + liftingCapacity +
-                ", \n\tspeed=" + speed +
-                ", \n\tdoorsSpeed=" + doorsSpeed +
-                ", \n\toccupiedCapacity=" + occupiedCapacity +
-                ", \n\thumans=" + humans +
-                ", \n\tgoingVector=" + goingVector +
-                "\n}";
+                "location=" + location +
+                ", isDoorsOpen=" + isDoorsOpen +
+                ", liftingCapacity=" + liftingCapacity +
+                ", speed=" + speed +
+                ", doorsSpeed=" + doorsSpeed +
+                ", occupiedCapacity=" + occupiedCapacity +
+                ", humans=" + humans +
+                ", goingVector=" + goingVector +
+                "}";
     }
 }

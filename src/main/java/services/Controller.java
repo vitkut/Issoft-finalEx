@@ -13,7 +13,12 @@ public class Controller {
 
     public void control(Building building){
         checkButtons(building);
-
+        for(Elevator e:building.getElevators()){
+            checkElevator(e, building);
+        }
+        for(Elevator e:building.getElevators()){
+            correctElevatorGoingVector(e, building);
+        }
     }
 
     public void checkButtons(Building building){
@@ -70,27 +75,65 @@ public class Controller {
     }
 
     public void checkElevator(Elevator elevator, Building building){
+        Floor floor = building.getFloors().get(elevator.getLocation());
         if(elevator.isDoorsOpen()){
             for (Human h:elevator.getHumans()){
                 if(h.getRequiredFloor() == elevator.getLocation()){
                     elevator.getHumans().remove(h);
                 }
             }
-            if(elevator.getGoingVector() >= 0){
-                for(Human h:building.getFloors().get(elevator.getLocation()).getToUp()){
+            if(!elevator.getHumans().isEmpty() && elevator.getGoingVector() > 0){
+                for(Human h:floor.getToUp()){
                     if(h.getWeight()+elevator.getOccupiedCapacity() <= elevator.getLiftingCapacity()){
                         elevator.getHumans().add(h);
+                        floor.getToUp().remove(h);
                     } else {
                         break;
                     }
                 }
+                if(floor.getToUp().isEmpty()){
+                    floor.setUpButtonIsPressed(false);
+                }
             }
-            if(elevator.getGoingVector() < 0){
-                for(Human h:building.getFloors().get(elevator.getLocation()).getToDown()){
+            if(!elevator.getHumans().isEmpty() && elevator.getGoingVector() < 0){
+                for(Human h:floor.getToDown()){
                     if(h.getWeight()+elevator.getOccupiedCapacity() <= elevator.getLiftingCapacity()){
                         elevator.getHumans().add(h);
+                        floor.getToDown().remove(h);
                     } else {
                         break;
+                    }
+                }
+                if(floor.getToDown().isEmpty()){
+                    floor.setDownButtonIsPressed(false);
+                }
+            }
+            if(elevator.getHumans().isEmpty()){
+                if(!floor.getToUp().isEmpty()){
+                    for(Human h:floor.getToUp()){
+                        if(h.getWeight()+elevator.getOccupiedCapacity() <= elevator.getLiftingCapacity()){
+                            elevator.getHumans().add(h);
+                            floor.getToUp().remove(h);
+                        } else {
+                            break;
+                        }
+                    }
+                    if(floor.getToUp().isEmpty()){
+                        floor.setUpButtonIsPressed(false);
+                    }
+                } else {
+                    if(!floor.getToDown().isEmpty()){
+                        for(Human h:floor.getToDown()){
+                            if(h.getWeight()+elevator.getOccupiedCapacity() <= elevator.getLiftingCapacity()){
+                                elevator.getHumans().add(h);
+                                floor.getToDown().remove(h);
+                            } else {
+                                break;
+                            }
+                        }
+                        if(floor.getToDown().isEmpty()){
+                            floor.setDownButtonIsPressed(false);
+                        }
                     }
                 }
             }
@@ -104,13 +147,18 @@ public class Controller {
                     break;
                 }
             }
-            if(elevator.getGoingVector() >= 0){
-                if(!building.getFloors().get(elevator.getLocation()).getToUp().isEmpty()){
+            if(!elevator.getHumans().isEmpty() && elevator.getGoingVector() > 0){
+                if(!floor.getToUp().isEmpty()){
                     needToOpenDoors = true;
                 }
             }
-            if(elevator.getGoingVector() < 0){
-                if(!building.getFloors().get(elevator.getLocation()).getToDown().isEmpty()){
+            if(!elevator.getHumans().isEmpty() && elevator.getGoingVector() < 0){
+                if(!floor.getToDown().isEmpty()){
+                    needToOpenDoors = true;
+                }
+            }
+            if(elevator.getHumans().isEmpty()){
+                if(!floor.getToUp().isEmpty() || !floor.getToDown().isEmpty()){
                     needToOpenDoors = true;
                 }
             }
@@ -121,5 +169,19 @@ public class Controller {
             }
             logger.debug("Check elevator - elevator - "+elevator+" door is not open");
         }
+    }
+
+    public void correctElevatorGoingVector(Elevator elevator, Building building){
+        if(!elevator.isDoorsOpen()){
+            if(!elevator.getHumans().isEmpty()){
+                if(elevator.getHumans().get(0).getRequiredFloor() > elevator.getLocation()){
+                    elevator.setGoingVector(1);
+                }
+                if(elevator.getHumans().get(0).getRequiredFloor() < elevator.getLocation()){
+                    elevator.setGoingVector(-1);
+                }
+            }
+        }
+        logger.debug("Correct elevators going vector - elevator - "+elevator);
     }
 }

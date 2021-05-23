@@ -68,11 +68,11 @@ public class Floor {
     @Override
     public String toString() {
         return "Floor{" +
-                "\n\tnumber=" + number +
-                ", \n\ttoDown=" + toDown +
-                ", \n\ttoUp=" + toUp +
-                ", \n\tupButtonIsPressed=" + upButtonIsPressed +
-                ", \n\tdownButtonIsPressed=" + downButtonIsPressed +
-                "\n}";
+                "number=" + number +
+                ", toDown=" + toDown +
+                ", toUp=" + toUp +
+                ", upButtonIsPressed=" + upButtonIsPressed +
+                ", downButtonIsPressed=" + downButtonIsPressed +
+                "}";
     }
 }

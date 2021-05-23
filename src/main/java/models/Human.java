@@ -29,8 +29,8 @@ public class Human {
     @Override
     public String toString() {
         return "Human{" +
-                "\n\tweight=" + weight +
-                ", \n\trequiredFloor=" + requiredFloor +
-                "\n}";
+                "weight=" + weight +
+                ", requiredFloor=" + requiredFloor +
+                "}";
     }
 }

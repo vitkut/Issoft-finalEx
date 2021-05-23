@@ -40,4 +40,16 @@ public class BuildingSamples {
 
         return building;
     }
+
+    public static Building getValidBuildingV3(){
+        Building building = BuildingCreator.getBuilding(3, 2, 400, 1, 1);
+        Human human1 = new Human(60, 2);//1 to 2
+        Human human2 = new Human(60, 0);//1 to 0
+        Floor floor = building.getFloors().get(1);
+        floor.addToUp(human1);
+        building.getElevators().get(0).setLocation(1);
+        building.getElevators().get(0).getHumans().add(human2);
+
+        return building;
+    }
 }
