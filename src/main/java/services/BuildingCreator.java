@@ -12,17 +12,17 @@ public class BuildingCreator {
 
     private static final Logger logger = LoggerFactory.getLogger(Building.class);
 
-    public static Building getBuilding(int numberOfFloors, int numOfElevators, int liftingCapacity, int elevatorSteed, int doorSpeed){
+    public static Building getBuilding(int numOfFloors, int numOfElevators, int liftingCapacity, int elevatorSpeed, int doorSpeed){
         ArrayList<Floor> floors = new ArrayList<Floor>();
         ArrayList<Elevator> elevators = new ArrayList<Elevator>();
-        for(int i = 0; i < numberOfFloors; i++){
+        for(int i = 0; i < numOfFloors; i++){
             floors.add(new Floor(i));
         }
         for(int i = 0; i < numOfElevators; i++){
-            elevators.add(new Elevator(0, liftingCapacity, elevatorSteed, doorSpeed));
+            elevators.add(new Elevator(0, liftingCapacity, elevatorSpeed, doorSpeed));
         }
-        Building building = new Building(numberOfFloors, elevators, floors);
-        logger.debug(" Building created - "+building);
+        Building building = new Building(numOfFloors, elevators, floors);
+        logger.debug("Building created - "+building);
         return building;
     }
 

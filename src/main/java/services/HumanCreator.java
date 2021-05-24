@@ -13,11 +13,9 @@ public class HumanCreator {
         int floor = (int) (Math.random()*building.getNumberOfFloors());
         int weight = ((int) (Math.random()*80))+40;
         int reqFloor = (int) (Math.random()*building.getNumberOfFloors());
-        if(reqFloor == floor){
-            if(Math.random() > 0.5){
-                reqFloor++;
-            } else {
-                reqFloor--;
+        if(building.getNumberOfFloors() > 1){
+            while (reqFloor == floor){
+                reqFloor = (int) (Math.random()*building.getNumberOfFloors());
             }
         }
         Human newHuman = new Human(weight, reqFloor);

@@ -5,9 +5,7 @@ import models.Human;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.BuildingCreator;
-import services.ButtonPusher;
 import services.Controller;
-import services.HumanCreator;
 
 public class Main {
 
@@ -30,7 +28,7 @@ public class Main {
             /*if(Math.random() < 0.1){
                 HumanCreator.createRandomHuman(building);
             }
-            ButtonPusher.press(building);*/
+            */
             controller.control(building);
             moveElevators();
             i++;
